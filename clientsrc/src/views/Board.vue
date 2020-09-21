@@ -1,6 +1,13 @@
 <template>
-  <div class="board">
-    <h1 v-if="board.title">{{board.title}}</h1>
+  <div class="board container-fluid">
+    <div class="row" v-if="board.title">
+      <div class="card col-12">
+        <div class="card-body">
+          <h4 class="card-title">{{board.title}}</h4>
+          <p class="card-text">{{board.description}}</p>
+        </div>
+      </div>
+    </div>
     <h1 v-else>Loading...</h1>
   </div>
 </template>
@@ -8,12 +15,14 @@
 <script>
 export default {
   name: "board",
+  mounted() {
+    this.$store.dispatch("getActiveBoard", this.$route.params.boardId);
+  },
   computed: {
     board() {
-      //FIXME This does not work on page reload because the activeBoard is empty in the store
       return this.$store.state.activeBoard;
-    }
+    },
   },
-  props: ["boardId"]
+  props: ["boardId"],
 };
 </script>

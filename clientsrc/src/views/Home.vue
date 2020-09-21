@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <h1>This is your home page.</h1>
+    <h1>Welcome to KanBan!</h1>
+    <h5>Sign in to view your boards!</h5>
   </div>
 </template>
 
@@ -13,7 +14,7 @@ export default {
   },
   computed: {},
   methods: {},
-  components: {}
+  components: {},
 };
 </script>
 

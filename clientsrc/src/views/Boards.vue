@@ -1,18 +1,27 @@
 <template>
   <div class="boards">
-    WELCOME TO THE BOARDS!!!
-    <form @submit.prevent="addBoard">
-      <input type="text" placeholder="title" v-model="newBoard.title" required />
-      <input type="text" placeholder="description" v-model="newBoard.description" />
-      <button type="submit">Create Board</button>
-    </form>
-    <div v-for="board in boards" :key="board.id">
-      <router-link :to="{name: 'board', params: {boardId: board.id}}>{{board.title}}</router-link>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 card">
+          <form class="card-body" @submit.prevent="addBoard">
+            <input type="text" placeholder="title" v-model="newBoard.title" required />
+            <input type="text" placeholder="description" v-model="newBoard.description" />
+            <button class="btn btn-success" type="submit">Create Board</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row"></div>
+      <div v-for="b in allBoards" :key="b.id">
+        <board-component :boardProp="b" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import boardComponent from "../components/BoardComponent.vue";
 export default {
   name: "boards",
   mounted() {
@@ -22,20 +31,23 @@ export default {
     return {
       newBoard: {
         title: "",
-        description: ""
-      }
+        description: "",
+      },
     };
   },
   computed: {
-    boards() {
+    allBoards() {
       return this.$store.state.boards;
-    }
+    },
   },
   methods: {
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
       this.newBoard = { title: "", description: "" };
-    }
-  }
+    },
+  },
+  components: {
+    boardComponent,
+  },
 };
 </script>
