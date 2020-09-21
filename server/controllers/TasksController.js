@@ -30,7 +30,7 @@ export class TasksController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      let data = await tasksService.getById(req.params.id, req.userInfo.email)
+      let data = await tasksService.getById(req.params.listId, req.userInfo.email)
       return res.send(data)
     } catch (error) { next(error) }
   }
@@ -45,14 +45,14 @@ export class TasksController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      let data = await tasksService.edit(req.params.id, req.userInfo.email, req.body)
+      let data = await tasksService.edit(req.params.listId, req.userInfo.email, req.body)
       return res.send(data)
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
-      await tasksService.delete(req.params.id, req.userInfo.email)
+      await tasksService.delete(req.params.listId, req.userInfo.email)
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }

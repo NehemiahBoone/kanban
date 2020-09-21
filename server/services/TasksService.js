@@ -4,7 +4,7 @@ import { BadRequest } from "../utils/Errors"
 
 class TaskService {
   async getAllTasksByListId(userEmail) {
-    return await dbContext.Tasks.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+    return await dbContext.Tasks.find({ creatorEmail: userEmail })
   }
 
   async getById(id, userEmail) {
