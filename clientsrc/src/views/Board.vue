@@ -1,28 +1,50 @@
 <template>
   <div class="board container-fluid">
-    <div class="row" v-if="board.title">
-      <div class="card col-12">
-        <div class="card-body">
-          <h4 class="card-title">{{board.title}}</h4>
-          <p class="card-text">{{board.description}}</p>
-        </div>
+    <div class="row">
+      <div class="col-12">
+        <form class="card-body" @submit.prevent="addList">
+          <input type="text" placeholder="title" v-model="newList.title" />
+          <input type="text" placeholder="description" v-model="newList.description" />
+          <button class="btn btn-success" type="submit">Create List</button>
+        </form>
       </div>
+    </div>
+    <div v-if="board.title">
+      <list-component v-for="list in lists" :key="list.id" :listProp="list" />
     </div>
     <h1 v-else>Loading...</h1>
   </div>
 </template>
 
 <script>
+import listComponent from "../components/ListComponent.vue";
 export default {
   name: "board",
   mounted() {
     this.$store.dispatch("getActiveBoard", this.$route.params.boardId);
   },
+  data() {
+    return {
+      newList: {},
+    };
+  },
   computed: {
     board() {
       return this.$store.state.activeBoard;
     },
+    lists() {
+      return this.$store.state.lists;
+    },
   },
   props: ["boardId"],
+  components: {
+    listComponent,
+  },
+  methods: {
+    addList() {
+      this.$store.dispatch("createList", this.newList);
+      newList = {};
+    },
+  },
 };
 </script>

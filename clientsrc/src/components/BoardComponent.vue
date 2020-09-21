@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="card">
         <router-link :to="{name: 'board', params: {boardId: boardProp.id}}">
-          <div @click="setActiveBoard" class="card-body">
+          <div class="card-body">
             <h4 class="card-title">{{boardProp.title}}</h4>
             <p class="card-text">{{boardProp.description}}</p>
           </div>
