@@ -15,6 +15,32 @@
       <div class="row"></div>
       <div v-for="b in allBoards" :key="b.id">
         <board-component :boardProp="b" />
+        <form class="form-inline collapse" @submit.prevent="editBoard(b.id)" :id="'board'+b.id">
+          <div>
+            <input
+              type="text"
+              class="form-control my-1"
+              placeholder="Edit Title..."
+              aria-describedby="helpId"
+              v-model="boardData.title"
+            />
+            <input
+              type="text"
+              class="form-control my-1"
+              placeholder="Edit Description..."
+              aria-describedby="helpId"
+              v-model="boardData.description"
+            />
+          </div>
+          <button type="submit" class="btn btn-warning mx-1">Post</button>
+        </form>
+        <button
+          class="btn btn-info"
+          type="button"
+          data-toggle="collapse"
+          :data-target="'#board' + b.id"
+        >Edit Board</button>
+        <button class="btn btn-danger" @click="deleteBoard(b.id)">Delete</button>
       </div>
     </div>
   </div>
@@ -33,6 +59,8 @@ export default {
         title: "",
         description: "",
       },
+      boardData: {},
+      editToggle: false,
     };
   },
   computed: {
@@ -44,6 +72,13 @@ export default {
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
       this.newBoard = { title: "", description: "" };
+    },
+    deleteBoard(boardId) {
+      this.$store.dispatch("deleteBoard", boardId);
+    },
+    editBoard(boardId) {
+      this.boardData.id = boardId;
+      this.$store.dispatch("editBoard", this.boardData);
     },
   },
   components: {

@@ -24,6 +24,13 @@ export default new Vuex.Store({
     setActiveBoard(state, board) {
       state.activeBoard = board
     },
+    removeBoard(state, boardId) {
+      state.boards.filter(b => b.id != boardId)
+    },
+    editBoard(state, board) {
+      let updatedBoard = state.boards.find(b => b.id = board.id)
+      updatedBoard = board
+    },
     addList(state, list) {
       state.lists.push(list)
     },
@@ -51,6 +58,23 @@ export default new Vuex.Store({
       try {
         let res = await api.get("boards/" + boardId)
         commit("setActiveBoard", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteBoard({ commit, dispatch }, boardId) {
+      try {
+        await api.delete("boards/" + boardId)
+        commit("removeBoard", boardId)
+        dispatch("getBoards")
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async editBoard({ commit, dispatch }, boardData) {
+      try {
+        let res = await api.put("boards/" + boardData.id, boardData)
+        commit("editBoard", res.data)
       } catch (error) {
         console.error(error);
       }
