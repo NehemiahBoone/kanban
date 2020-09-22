@@ -28,8 +28,8 @@ export default new Vuex.Store({
       state.boards.filter(b => b.id != boardId)
     },
     editBoard(state, board) {
-      let updatedBoard = state.boards.find(b => b.id = board.id)
-      updatedBoard = board
+      let oldIndex = state.boards.findIndex(b => b.id == board.id)
+      state.boards.splice(oldIndex, 1, board)
     },
     addList(state, list) {
       state.lists.push(list)
