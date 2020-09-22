@@ -22,6 +22,7 @@ export default {
   name: "board",
   mounted() {
     this.$store.dispatch("getActiveBoard", this.$route.params.boardId);
+    this.$store.dispatch("getAllListsByBoardId");
   },
   data() {
     return {
@@ -42,8 +43,14 @@ export default {
   },
   methods: {
     addList() {
-      this.$store.dispatch("createList", this.newList);
-      newList = {};
+      let listData = {
+        boardId: this.$route.params.boardId,
+        title: this.newList.title,
+        description: this.newList.description,
+        creatorEmail: this.$store.state.user.creatorEmail,
+      };
+      this.$store.dispatch("createList", listData);
+      this.newList = {};
     },
   },
 };

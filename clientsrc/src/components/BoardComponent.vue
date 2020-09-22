@@ -6,6 +6,7 @@
           <div class="card-body">
             <h4 class="card-title">{{boardProp.title}}</h4>
             <p class="card-text">{{boardProp.description}}</p>
+            <button @click type="button" class="btn btn-danger">DELETE</button>
           </div>
         </router-link>
       </div>

@@ -3,8 +3,10 @@
     <div class="row">
       <div class="card col-3">
         <div class="card-body">
-          <h4 class="card-title">{{list.title}}</h4>
-          <div class="card-text"></div>
+          <h4 class="card-title">{{listProp.title}}</h4>
+          <div class="card-text">
+            <p>{{listProp.description}}</p>
+          </div>
         </div>
       </div>
     </div>

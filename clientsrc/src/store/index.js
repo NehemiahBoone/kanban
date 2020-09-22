@@ -26,6 +26,9 @@ export default new Vuex.Store({
     },
     addList(state, list) {
       state.lists.push(list)
+    },
+    setLists(state, lists) {
+      state.lists = lists
     }
   },
   actions: {
@@ -54,8 +57,18 @@ export default new Vuex.Store({
     },
     async createList({ commit }, newList) {
       try {
-        let res = await api.post("lists", newList)
+        let res = await api.post(":boardId/lists", newList)
+        console.log(res);
         commit("addList", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getAllListsByBoardId({ commit }, boardId) {
+      try {
+        let res = await api.get(":boardId/lists")
+        console.log(res);
+        commit("setLists", res.data)
       } catch (error) {
         console.error(error);
       }
