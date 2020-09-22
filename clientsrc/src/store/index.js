@@ -12,6 +12,7 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     lists: [],
+    tasks: [],
     activeBoard: {}
   },
   mutations: {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     setLists(state, lists) {
       state.lists = lists
+    },
+    addTask(state, task) {
+      state.tasks.push(task)
     }
   },
   actions: {
@@ -81,8 +85,7 @@ export default new Vuex.Store({
     },
     async createList({ commit }, newList) {
       try {
-        let res = await api.post(":boardId/lists", newList)
-        console.log(res);
+        let res = await api.post("/lists", newList)
         commit("addList", res.data)
       } catch (error) {
         console.error(error);
@@ -90,9 +93,24 @@ export default new Vuex.Store({
     },
     async getAllListsByBoardId({ commit }, boardId) {
       try {
-        let res = await api.get(":boardId/lists")
-        console.log(res);
+        let res = await api.get(`boards/${boardId}/lists`)
         commit("setLists", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteList({ dispatch }, listProp) {
+      try {
+        let res = await api.delete("/lists/" + listProp.id)
+        dispatch("getAllListsByBoardId", listProp.boardId)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async createTask({ commit }, task) {
+      try {
+        let res = await api.post("/tasks", task)
+        commit("addTask", res.data)
       } catch (error) {
         console.error(error);
       }

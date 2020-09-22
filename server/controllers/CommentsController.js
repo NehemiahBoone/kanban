@@ -8,29 +8,18 @@ import { commentsService } from '../services/CommentsService'
 //PUBLIC
 export class CommentsController extends BaseController {
   constructor() {
-    super("api/:taskId/comments")
+    super("api/comments")
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
-      .get('', this.getAllCommentsByTaskId)
       .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
   }
 
-
-  async getAllCommentsByTaskId(req, res, next) {
-    try {
-      //only gets lists by user who is logged in
-      let data = await commentsService.getAllCommentsByTaskId(req.userInfo.email)
-      return res.send(data)
-    }
-    catch (err) { next(err) }
-  }
-
   async getById(req, res, next) {
     try {
-      let data = await commentsService.getById(req.params.taskId, req.userInfo.email)
+      let data = await commentsService.getById(req.params.id, req.userInfo.email)
       return res.send(data)
     } catch (error) { next(error) }
   }
@@ -45,14 +34,14 @@ export class CommentsController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      let data = await commentsService.edit(req.params.taskId, req.userInfo.email, req.body)
+      let data = await commentsService.edit(req.params.id, req.userInfo.email, req.body)
       return res.send(data)
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
-      await commentsService.delete(req.params.taskId, req.userInfo.email)
+      await commentsService.delete(req.params.id, req.userInfo.email)
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }

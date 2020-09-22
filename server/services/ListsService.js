@@ -3,9 +3,6 @@ import { BadRequest } from "../utils/Errors"
 
 
 class ListService {
-  async getAllListsByBoardId(userEmail) {
-    return await dbContext.Lists.find({ creatorEmail: userEmail }).populate("creator", "name picture")
-  }
 
   async getById(id, userEmail) {
     let data = await dbContext.Lists.findOne({ _id: id, creatorEmail: userEmail })
@@ -13,6 +10,10 @@ class ListService {
       throw new BadRequest("Invalid ID or you do not own this board")
     }
     return data
+  }
+
+  async getAllTasksByListId(userEmail) {
+    return await dbContext.Tasks.find({ creatorEmail: userEmail })
   }
 
   async create(rawData) {

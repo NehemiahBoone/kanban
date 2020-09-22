@@ -3,9 +3,6 @@ import { BadRequest } from "../utils/Errors"
 
 
 class CommentService {
-  async getAllCommentsByTaskId(userEmail) {
-    return await dbContext.Comments.find({ creatorEmail: userEmail }).populate("creator", "name picture")
-  }
 
   async getById(id, userEmail) {
     let data = await dbContext.Comments.findOne({ _id: id, creatorEmail: userEmail })

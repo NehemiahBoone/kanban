@@ -7,6 +7,10 @@ class BoardService {
     return await dbContext.Boards.find({ creatorEmail: userEmail }).populate("creator", "name picture")
   }
 
+  async getAllListsByBoardId(userEmail) {
+    return await dbContext.Lists.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+  }
+
   async getById(id, userEmail) {
     let data = await dbContext.Boards.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {

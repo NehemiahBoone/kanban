@@ -2,10 +2,11 @@
   <div class="board container-fluid">
     <div class="row">
       <div class="col-12">
+        <h1>{{board.title}}</h1>
         <form class="card-body" @submit.prevent="addList">
           <input type="text" placeholder="title" v-model="newList.title" />
           <input type="text" placeholder="description" v-model="newList.description" />
-          <button class="btn btn-success" type="submit">Create List</button>
+          <button class="btn btn-success" type="submit">Create {{board.title}}</button>
         </form>
       </div>
     </div>
