@@ -5,13 +5,8 @@
         {{taskProp.title}}
         <i @click="deleteTask" class="fas fa-trash text-danger"></i>
       </li>
-      <select>
-        <option
-          @click="switchLists"
-          v-for="list in lists"
-          :key="list.id"
-          :value="list.id"
-        >{{list.title}}</option>
+      <select @change="switchLists" v-model="changeList.listId">
+        <option v-for="list in lists" :key="list.id" :value="list.id">{{list.title}}</option>
       </select>
     </ul>
   </div>
@@ -26,6 +21,7 @@ export default {
     return {
       createTaskToggle: false,
       newTask: {},
+      changeList: {},
     };
   },
   computed: {
@@ -47,6 +43,13 @@ export default {
     deleteTask() {
       console.log(this.taskProp);
       this.$store.dispatch("deleteTask", this.taskProp);
+    },
+    switchLists() {
+      this.$store.dispatch("switchLists", {
+        id: this.taskProp.id,
+        listId: this.changeList.listId,
+        boardId: this.$route.params.boardId,
+      });
     },
   },
   components: {},

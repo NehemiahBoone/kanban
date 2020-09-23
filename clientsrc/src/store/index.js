@@ -138,6 +138,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async switchLists({ dispatch }, payload) {
+      try {
+        let res = await api.put("tasks/" + payload.id, payload)
+        dispatch("getAllListsByBoardId", payload.boardId)
+      } catch (error) {
+        console.error(error);
+      }
+    },
     //#endregion
 
 
