@@ -3,17 +3,24 @@
     <ul>
       <li>
         {{taskProp.title}}
+        <comment-component v-for="comment in comments" :key="comment._id" :commentProp="comment" />
         <i @click="deleteTask" class="fas fa-trash text-danger"></i>
+        <i @click="commentToggle = !commentToggle" class="fas fa-pencil-alt text-info"></i>
+        <select @change="switchLists" v-model="changeList.listId">
+          <option v-for="list in lists" :key="list.id" :value="list.id">{{list.title}}</option>
+        </select>
+        <form class="card-body" @submit.prevent="addComment" v-if="commentToggle">
+          <input type="text" placeholder="Comment..." v-model="newComment.title" />
+          <button class="btn btn-success" type="submit">Post Comment</button>
+        </form>
       </li>
-      <select @change="switchLists" v-model="changeList.listId">
-        <option v-for="list in lists" :key="list.id" :value="list.id">{{list.title}}</option>
-      </select>
     </ul>
   </div>
 </template>
 
 
 <script>
+import commentComponent from "./CommentComponent.vue";
 export default {
   name: "Task",
   props: ["taskProp"],
@@ -21,7 +28,9 @@ export default {
     return {
       createTaskToggle: false,
       newTask: {},
+      newComment: {},
       changeList: {},
+      commentToggle: false,
     };
   },
   computed: {
@@ -30,6 +39,10 @@ export default {
     },
     lists() {
       return this.$store.state.lists;
+    },
+    comments() {
+      return this.taskProp.comments;
+      // return this.$store.state.tasks[taskId: this.taskProp.listId]
     },
   },
   methods: {
@@ -52,8 +65,19 @@ export default {
         boardId: this.$route.params.boardId,
       });
     },
+    addComment() {
+      let taskData = {
+        ...this.taskProp,
+      };
+      taskData.comments.push(this.newComment);
+      debugger;
+      this.$store.dispatch("addComment", taskData);
+      this.newComment = {};
+    },
   },
-  components: {},
+  components: {
+    commentComponent,
+  },
 };
 </script>
 

@@ -150,6 +150,15 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async addComment({ commit, dispatch }, comment) {
+      try {
+        debugger
+        let res = await api.put("tasks/" + comment.id, comment)
+        dispatch("getAllTasksByListId", comment.listId)
+      } catch (error) {
+        console.error(error);
+      }
+    },
     //#endregion
 
 
