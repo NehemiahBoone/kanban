@@ -45,6 +45,9 @@ export default new Vuex.Store({
       // NOTE This doesnt work because javascript doesnt see addition of properties to objects as a change
       // state.tasks[payload.listId] = payload.tasks
       Vue.set(state.tasks, payload.listId, payload.tasks)
+    },
+    deleteTask(state, payload) {
+      state.tasks[payload.oldList] = state.tasks[payload.oldList].filter(t => t.id != payload.id)
     }
   },
   actions: {
@@ -138,10 +141,11 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async switchLists({ dispatch }, payload) {
+    async switchLists({ dispatch, commit }, payload) {
       try {
         let res = await api.put("tasks/" + payload.id, payload)
-        dispatch("getAllListsByBoardId", payload.boardId)
+        dispatch("getAllTasksByListId", payload.listId)
+        commit("deleteTask", payload)
       } catch (error) {
         console.error(error);
       }

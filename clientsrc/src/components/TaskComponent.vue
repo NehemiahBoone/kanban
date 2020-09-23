@@ -47,6 +47,7 @@ export default {
     switchLists() {
       this.$store.dispatch("switchLists", {
         id: this.taskProp.id,
+        oldList: this.taskProp.listId,
         listId: this.changeList.listId,
         boardId: this.$route.params.boardId,
       });
