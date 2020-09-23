@@ -3,7 +3,13 @@
     <ul>
       <li>
         {{taskProp.title}}
-        <comment-component v-for="comment in comments" :key="comment._id" :commentProp="comment" />
+        <comment-component
+          v-for="(comment,index) in comments"
+          :key="comment._id"
+          :index="index"
+          :commentProp="comment"
+          :taskCom="taskProp"
+        />
         <i @click="deleteTask" class="fas fa-trash text-danger"></i>
         <i @click="commentToggle = !commentToggle" class="fas fa-pencil-alt text-info"></i>
         <select @change="switchLists" v-model="changeList.listId">
@@ -70,7 +76,6 @@ export default {
         ...this.taskProp,
       };
       taskData.comments.push(this.newComment);
-      debugger;
       this.$store.dispatch("addComment", taskData);
       this.newComment = {};
     },

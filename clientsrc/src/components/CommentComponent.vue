@@ -1,6 +1,9 @@
 <template>
   <div class="comment">
-    <small>{{commentProp.title}}</small>
+    <small>
+      {{commentProp.title}}
+      <i @click="deleteComment" class="fas fa-minus text-danger"></i>
+    </small>
   </div>
 </template>
 
@@ -8,12 +11,18 @@
 <script>
 export default {
   name: "Comment",
-  props: ["commentProp"],
+  props: ["commentProp", "taskCom", "index"],
   data() {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    deleteComment() {
+      let task = { ...this.taskCom };
+      task.comments.splice(this.index, 1);
+      this.$store.dispatch("deleteComment", task);
+    },
+  },
   components: {},
 };
 </script>
