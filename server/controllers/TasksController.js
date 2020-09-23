@@ -12,7 +12,7 @@ export class TasksController extends BaseController {
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get('/:id', this.getById)
-      .get('', this.getAllCommentsByTaskId)
+      .get('/:taskId/comments', this.getAllCommentsByTaskId)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -51,7 +51,7 @@ export class TasksController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      await tasksService.delete(req.params.listId, req.userInfo.email)
+      await tasksService.delete(req.params.id, req.userInfo.email)
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }

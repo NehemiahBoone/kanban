@@ -1,7 +1,18 @@
 <template>
   <div class="task">
     <ul>
-      <li>{{taskProp.title}}</li>
+      <li>
+        {{taskProp.title}}
+        <i @click="deleteTask" class="fas fa-trash text-danger"></i>
+      </li>
+      <select>
+        <option
+          @click="switchLists"
+          v-for="list in lists"
+          :key="list.id"
+          :value="list.id"
+        >{{list.title}}</option>
+      </select>
     </ul>
   </div>
 </template>
@@ -32,6 +43,10 @@ export default {
     addTask() {
       newTask.listId = this.listProp.id;
       this.$store.dispatch("createTask", this.newTask);
+    },
+    deleteTask() {
+      console.log(this.taskProp);
+      this.$store.dispatch("deleteTask", this.taskProp);
     },
   },
   components: {},

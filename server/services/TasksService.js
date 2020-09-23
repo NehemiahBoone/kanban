@@ -7,7 +7,7 @@ class TaskService {
   async getById(id, userEmail) {
     let data = await dbContext.Tasks.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board")
+      throw new BadRequest("Invalid ID or you do not own this task")
     }
     return data
   }
@@ -24,7 +24,7 @@ class TaskService {
   async edit(id, userEmail, update) {
     let data = await dbContext.Tasks.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board");
+      throw new BadRequest("Invalid ID or you do not own this task");
     }
     return data;
   }
@@ -32,7 +32,7 @@ class TaskService {
   async delete(id, userEmail) {
     let data = await dbContext.Tasks.findOneAndRemove({ _id: id, creatorEmail: userEmail });
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board");
+      throw new BadRequest("Invalid ID or you do not own this task");
     }
   }
 

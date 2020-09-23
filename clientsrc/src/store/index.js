@@ -12,7 +12,7 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     lists: [],
-    tasks: [],
+    tasks: {},
     activeBoard: {}
   },
   mutations: {
@@ -40,6 +40,11 @@ export default new Vuex.Store({
     },
     addTask(state, task) {
       state.tasks.push(task)
+    },
+    setTasks(state, payload) {
+      // NOTE This doesnt work because javascript doesnt see addition of properties to objects as a change
+      // state.tasks[payload.listId] = payload.tasks
+      Vue.set(state.tasks, payload.listId, payload.tasks)
     }
   },
   actions: {
@@ -94,6 +99,7 @@ export default new Vuex.Store({
     async getAllListsByBoardId({ commit }, boardId) {
       try {
         let res = await api.get(`boards/${boardId}/lists`)
+        console.log();
         commit("setLists", res.data)
       } catch (error) {
         console.error(error);
@@ -107,10 +113,27 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async createTask({ commit }, task) {
+    async createTask({ dispatch }, task) {
       try {
         let res = await api.post("/tasks", task)
-        commit("addTask", res.data)
+        dispatch("getAllTasksByListId", task.listId)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getAllTasksByListId({ commit }, id) {
+      try {
+        let res = await api.get(`lists/${id}/tasks`)
+        commit("setTasks", { listId: id, tasks: res.data })
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteTask({ dispatch }, task) {
+      try {
+        console.log(task);
+        await api.delete("tasks/" + task.id)
+        dispatch("getAllTasksByListId", task.listId)
       } catch (error) {
         console.error(error);
       }

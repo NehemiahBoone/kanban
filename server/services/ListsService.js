@@ -7,13 +7,13 @@ class ListService {
   async getById(id, userEmail) {
     let data = await dbContext.Lists.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board")
+      throw new BadRequest("Invalid ID or you do not own this list")
     }
     return data
   }
 
-  async getAllTasksByListId(userEmail) {
-    return await dbContext.Tasks.find({ creatorEmail: userEmail })
+  async getAllTasksByListId(userEmail, listId) {
+    return await dbContext.Tasks.find({ creatorEmail: userEmail, listId })
   }
 
   async create(rawData) {
@@ -24,7 +24,7 @@ class ListService {
   async edit(id, userEmail, update) {
     let data = await dbContext.Lists.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board");
+      throw new BadRequest("Invalid ID or you do not own this list");
     }
     return data;
   }
@@ -32,7 +32,7 @@ class ListService {
   async delete(id, userEmail) {
     let data = await dbContext.Lists.findOneAndRemove({ _id: id, creatorEmail: userEmail });
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board");
+      throw new BadRequest("Invalid ID or you do not own this list");
     }
   }
 

@@ -32,6 +32,9 @@
 import TaskComponent from "./TaskComponent.vue";
 export default {
   name: "List",
+  mounted() {
+    this.$store.dispatch("getAllTasksByListId", this.listProp.id);
+  },
   props: ["listProp"],
   data() {
     return {
@@ -47,7 +50,7 @@ export default {
       return this.$store.state.lists;
     },
     tasks() {
-      return this.$store.state.tasks;
+      return this.$store.state.tasks[this.listProp.id];
     },
   },
   methods: {
