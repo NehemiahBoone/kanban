@@ -3,6 +3,15 @@
     <ul>
       <li>
         {{taskProp.title}}
+        <i @click="deleteTask" class="fas fa-trash customDelete"></i>
+        <i @click="commentToggle = !commentToggle" class="fas fa-plus text-info"></i>
+        <select @change="switchLists" v-model="changeList.listId">
+          <option v-for="list in lists" :key="list.id" :value="list.id">{{list.title}}</option>
+        </select>
+        <form class="card-body" @submit.prevent="addComment" v-if="commentToggle">
+          <input type="text" placeholder="Comment..." v-model="newComment.title" />
+          <button class="btn customBtnPost mt-2" type="submit">Post Comment</button>
+        </form>
         <comment-component
           v-for="(comment,index) in comments"
           :key="comment._id"
@@ -10,15 +19,6 @@
           :commentProp="comment"
           :taskCom="taskProp"
         />
-        <i @click="deleteTask" class="fas fa-trash text-danger"></i>
-        <i @click="commentToggle = !commentToggle" class="fas fa-pencil-alt text-info"></i>
-        <select @change="switchLists" v-model="changeList.listId">
-          <option v-for="list in lists" :key="list.id" :value="list.id">{{list.title}}</option>
-        </select>
-        <form class="card-body" @submit.prevent="addComment" v-if="commentToggle">
-          <input type="text" placeholder="Comment..." v-model="newComment.title" />
-          <button class="btn btn-success" type="submit">Post Comment</button>
-        </form>
       </li>
     </ul>
   </div>
@@ -88,4 +88,13 @@ export default {
 
 
 <style scoped>
+ul {
+  list-style-type: none;
+}
+.customBtnPost {
+  background-color: #a7d49b;
+}
+.customDelete {
+  color: #ef6f6c;
+}
 </style>

@@ -3,14 +3,15 @@
     <div class="row">
       <div class="col-12">
         <h1>{{board.title}}</h1>
-        <form class="card-body" @submit.prevent="addList">
+        <i @click="formToggle = !formToggle" class="fas fa-tasks mb-3"></i>
+        <form class="card-body" @submit.prevent="addList" v-if="formToggle">
           <input type="text" placeholder="title" v-model="newList.title" />
           <input type="text" placeholder="description" v-model="newList.description" />
-          <button class="btn btn-success" type="submit">Create {{board.title}}</button>
+          <button class="btn customBtnPost" type="submit">Create {{board.title}}</button>
         </form>
       </div>
     </div>
-    <div v-if="board.title">
+    <div class="row" v-if="board.title">
       <list-component v-for="list in lists" :key="list.id" :listProp="list" />
     </div>
     <h1 v-else>Loading...</h1>
@@ -28,6 +29,7 @@ export default {
   data() {
     return {
       newList: {},
+      formToggle: false,
     };
   },
   computed: {
@@ -52,7 +54,14 @@ export default {
       };
       this.$store.dispatch("createList", listData);
       this.newList = {};
+      this.formToggle = false;
     },
   },
 };
 </script>
+
+<style scoped>
+.customBtnPost {
+  background-color: #a7d49b;
+}
+</style>

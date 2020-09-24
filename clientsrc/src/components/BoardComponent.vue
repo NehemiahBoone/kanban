@@ -25,9 +25,9 @@
               v-model="boardProp.description"
             />
           </div>
-          <button type="submit" class="btn btn-warning mx-1">Post</button>
+          <button type="submit" class="btn btn-info mx-1">Update</button>
         </form>
-        <div class="card-footer d-flex align-items-end">
+        <div class="card-footer d-flex flex-row-reverse">
           <button class="btn btn-info" type="button" @click="editToggle = !editToggle">Edit Board</button>
           <button class="btn customDelete text-light" @click="deleteBoard">Delete</button>
         </div>

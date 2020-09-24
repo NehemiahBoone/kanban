@@ -1,23 +1,21 @@
 <template>
-  <div class="list">
+  <div class="list col-4 mb-2">
     <div class="card">
       <div class="card-body">
         <h4 class="card-header">
           {{listProp.title}} -
           {{listProp.description}}
-          <button
-            class="btn btn-info"
-            @click="createTaskToggle = !createTaskToggle"
-          >
-            <i class="fas fa-pencil-alt"></i>
+          <br />
+          <button class="btn btn-info" @click="createTaskToggle = !createTaskToggle">
+            <i class="fas fa-plus"></i>
           </button>
-          <button class="btn btn-danger" @click="deleteList">
-            <i class="fas fa-trash mx-1"></i>
+          <button class="customButton btn" @click="deleteList">
+            <i class="fas fa-trash mx-1 text-light"></i>
           </button>
         </h4>
         <form class="card-body" @submit.prevent="addTask" v-if="createTaskToggle">
           <input type="text" placeholder="title" v-model="newTask.title" />
-          <button class="btn btn-success" type="submit">Post Task</button>
+          <button class="btn customBtnPost" type="submit">Post Task</button>
         </form>
         <div>
           <task-component v-for="task in tasks" :key="task.id" :taskProp="task" />
@@ -58,6 +56,7 @@ export default {
       this.$store.dispatch("deleteList", this.listProp);
     },
     addTask() {
+      this.createTaskToggle = false;
       this.newTask.listId = this.listProp.id;
       this.$store.dispatch("createTask", this.newTask);
     },
@@ -70,4 +69,10 @@ export default {
 
 
 <style scoped>
+.customBtnPost {
+  background-color: #a7d49b;
+}
+.customButton {
+  background-color: #ef6f6c;
+}
 </style>
