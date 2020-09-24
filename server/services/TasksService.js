@@ -4,6 +4,7 @@ import { BadRequest } from "../utils/Errors"
 
 class TaskService {
 
+
   async getById(id, userEmail) {
     let data = await dbContext.Tasks.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {
