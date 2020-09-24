@@ -7,8 +7,8 @@ class BoardService {
     return await dbContext.Boards.find({ creatorEmail: userEmail }).populate("creator", "name picture")
   }
 
-  async getAllListsByBoardId(userEmail) {
-    return await dbContext.Lists.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+  async getAllListsByBoardId(boardId, userEmail) {
+    return await dbContext.Lists.find({ boardId, creatorEmail: userEmail }).populate("creator", "name picture")
   }
 
   async getById(id, userEmail) {

@@ -1,20 +1,19 @@
 <template>
   <div class="boards">
-    <div class="container-fluid">
+    <div class="container-fluid bg-white">
       <div class="row">
         <div class="col-12 card">
           <form class="card-body" @submit.prevent="addBoard">
             <input type="text" placeholder="title" v-model="newBoard.title" required />
             <input type="text" placeholder="description" v-model="newBoard.description" />
-            <button class="btn btn-success" type="submit">Create Board</button>
+            <button class="btn customBtnPost" type="submit">Create Board</button>
           </form>
         </div>
       </div>
     </div>
-    <div class="container-fluid">
-      <div class="row"></div>
-      <div>
-        <board-component v-for="b in allBoards" :key="b.id" :boardProp="b" />
+    <div class="container-fluid bg-white">
+      <div class="row">
+        <board-component class="col-4" v-for="b in allBoards" :key="b.id" :boardProp="b" />
       </div>
     </div>
   </div>
@@ -51,3 +50,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.customBtnPost {
+  background-color: #a7d49b;
+}
+</style>

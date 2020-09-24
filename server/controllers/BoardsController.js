@@ -32,7 +32,7 @@ export class BoardsController extends BaseController {
   async getAllListsByBoardId(req, res, next) {
     try {
       //only gets lists by user who is logged in
-      let data = await boardService.getAllListsByBoardId(req.userInfo.email)
+      let data = await boardService.getAllListsByBoardId(req.params.boardId, req.userInfo.email)
       return res.send(data)
     }
     catch (err) { next(err) }

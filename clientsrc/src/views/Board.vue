@@ -23,7 +23,7 @@ export default {
   name: "board",
   mounted() {
     this.$store.dispatch("getActiveBoard", this.$route.params.boardId);
-    this.$store.dispatch("getAllListsByBoardId");
+    this.$store.dispatch("getAllListsByBoardId", this.$route.params.boardId);
   },
   data() {
     return {

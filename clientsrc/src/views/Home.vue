@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>Welcome to KanBan!</h1>
+  <div class="home bgImg text-light">
+    <h1 class="pt-5">Welcome to KanBan!</h1>
     <h5>Sign in to view your boards!</h5>
   </div>
 </template>
@@ -20,4 +20,11 @@ export default {
 
 
 <style scoped>
+.bgImg {
+  background-image: url("../assets/Kanban_Image.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
 </style>
