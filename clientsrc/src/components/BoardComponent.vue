@@ -1,5 +1,5 @@
 <template>
-  <div class="board-component">
+  <div class="board-component" id="boardComp">
     <div class="card mb-2">
       <div class="card-body bBackground">
         <router-link :to="{name: 'board', params: {boardId: boardProp.id}}">
@@ -63,6 +63,9 @@ export default {
 
 
 <style scoped>
+#boardComp {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
 .bBackground {
   background-color: #0496591c;
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="list col-4 mb-2">
     <div class="card">
-      <div class="card-body">
-        <h4 class="card-header">
+      <div class="card-body bBackground">
+        <h4 class="card-header hBackground">
           {{listProp.title}} -
           {{listProp.description}}
           <br />
@@ -74,5 +74,11 @@ export default {
 }
 .customButton {
   background-color: #ef6f6c;
+}
+.bBackground {
+  background-color: #0496591c;
+}
+.hBackground {
+  background-color: #0a503f36;
 }
 </style>

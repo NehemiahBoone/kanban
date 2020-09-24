@@ -1,9 +1,9 @@
 <template>
-  <div class="board container-fluid">
+  <div class="board container-fluid bg-white" id="activeBoard">
     <div class="row">
       <div class="col-12">
         <h1>{{board.title}}</h1>
-        <i @click="formToggle = !formToggle" class="fas fa-tasks mb-3"></i>
+        <i @click="formToggle = !formToggle" class="fas fa-bars mb-3"></i>
         <form class="card-body" @submit.prevent="addList" v-if="formToggle">
           <input type="text" placeholder="title" v-model="newList.title" />
           <input type="text" placeholder="description" v-model="newList.description" />
@@ -61,6 +61,9 @@ export default {
 </script>
 
 <style scoped>
+#activeBoard {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
 .customBtnPost {
   background-color: #a7d49b;
 }

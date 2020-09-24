@@ -1,19 +1,21 @@
 <template>
-  <div class="boards">
-    <div class="container-fluid bg-white">
-      <div class="row">
-        <div class="col-12 card">
-          <form class="card-body" @submit.prevent="addBoard">
-            <input type="text" placeholder="title" v-model="newBoard.title" required />
-            <input type="text" placeholder="description" v-model="newBoard.description" />
-            <button class="btn customBtnPost" type="submit">Create Board</button>
-          </form>
+  <div class="boards" id="boards">
+    <div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 card">
+            <form class="card-body" @submit.prevent="addBoard">
+              <input type="text" placeholder="title" v-model="newBoard.title" required />
+              <input type="text" placeholder="description" v-model="newBoard.description" />
+              <button class="btn customBtnPost" type="submit">Create Board</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="container-fluid bg-white">
-      <div class="row">
-        <board-component class="col-4" v-for="b in allBoards" :key="b.id" :boardProp="b" />
+      <div class="container-fluid bg-white">
+        <div class="row">
+          <board-component class="col-4" v-for="b in allBoards" :key="b.id" :boardProp="b" />
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +54,12 @@ export default {
 </script>
 
 <style scoped>
+#boards {
+  background-color: white;
+  height: 100vh;
+  overflow-y: hidden;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
 .customBtnPost {
   background-color: #a7d49b;
 }

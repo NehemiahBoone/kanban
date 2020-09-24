@@ -88,6 +88,9 @@ export default {
 
 
 <style scoped>
+select {
+  width: 6%;
+}
 ul {
   list-style-type: none;
 }

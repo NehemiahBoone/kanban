@@ -65,7 +65,7 @@ export default {
 
 <style scoped>
 .customNav {
-  background-color: #a7d4b9;
+  background-color: #a7d4b9ef;
   min-height: 7vh;
 }
 .customNavText {
